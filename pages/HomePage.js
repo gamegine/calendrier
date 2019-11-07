@@ -17,6 +17,25 @@ class HomePage extends React.Component {
                     renderDay={(day, item) => {return (<View />);}}
                     rowHasChanged={(r1, r2) => {return r1.text !== r2.text}}
                     style={{}}
+                    theme={{
+                        arrowColor: 'white',
+                        'stylesheet.calendar.header': {
+                          week: {
+                            marginTop: 5,
+                            flexDirection: 'row',
+                            justifyContent: 'space-between'
+                          }
+                        }
+                      }}
+                    onRefresh={() => console.log('refreshing...')}
+                    refreshing={false}
+                    refreshControl={null}
+                    renderKnob={() => {return (<View />);}}
+                    renderEmptyData = {() => {return (<View />);}}
+                    loadItemsForMonth={(month) => {console.log('trigger items loading')}}
+  onCalendarToggled={(calendarOpened) => {console.log(calendarOpened)}}
+  onDayPress={(day)=>{console.log('day pressed')}}
+  onDayChange={(day)=>{console.log('day changed')}}
 
                     />
                     
