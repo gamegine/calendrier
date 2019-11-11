@@ -1,4 +1,5 @@
 import { AsyncStorage } from 'react-native';
+import reducer from '../reducers/event'
 
 export const initAsync = () => {
     return dispatch => {
@@ -11,10 +12,9 @@ export const initAsync = () => {
 export const createAsync = (event) => {
     return dispatch => {
         AsyncStorage.getItem('event').then(data => {
-            let events = (data !=null)?JSON.parse(data):[]
-            events.push(event);
+            const events = reducer((data != null) ? JSON.parse(data) : [], { type: 'CREATE', value: event })
             AsyncStorage.setItem('event', JSON.stringify(events))
-                .then(() => { return dispatch({ type: 'INIT', value: events });});
+                .then(() => { return dispatch({ type: 'INIT', value: events }); });
         });
     }
 }
