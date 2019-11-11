@@ -16,11 +16,12 @@ const mapDispatchToProps = (dispatch) => {
 }
 export default connect(mapStateToProps, mapDispatchToProps)(class WeatherComp extends React.Component {
     componentDidMount() {
-        this.props.actions.init()
+        this.props.dispatch({"type":'CREATE',value:{"id":"test","n":"test1"}})
+        this.props.dispatch({"type":'CREATE',value:{"id":"test","n":"test2"}})
     }
 
     render() {
-        console.log("\n\n=========", this.props)
+        console.log(this.props.state)
         return (<Text>test</Text>);
     }
 })

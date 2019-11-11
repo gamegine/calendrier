@@ -8,10 +8,12 @@ export default function event(state = INITIAL_STATE, action) {
             nextState = action.value
             return nextState || state
         case 'CREATE':
-            nextState = [
-                ...state,
-                action.value
-            ]
+            if (state.findIndex(item => item.id === action.value.id) == -1) {
+                nextState = [
+                    ...state,
+                    action.value
+                ]
+            }
             return nextState || state
         case 'UPDATE':
             let index = state.findIndex(item => item.id === action.value.id)
@@ -22,7 +24,7 @@ export default function event(state = INITIAL_STATE, action) {
             return nextState || state
         case 'DELETE':
             nextState = [
-                ...state.filter( (item) => item.id !== action.value)
+                ...state.filter((item) => item.id !== action.value)
             ]
             return nextState || state
         default:
