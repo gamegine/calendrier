@@ -18,3 +18,23 @@ export const createAsync = (event) => {
         });
     }
 }
+
+export const updateAsync = (event) => {
+    return dispatch => {
+        AsyncStorage.getItem('event').then(data => {
+            const events = reducer((data != null) ? JSON.parse(data) : [], { type: 'UPDATE', value: event })
+            AsyncStorage.setItem('event', JSON.stringify(events))
+                .then(() => { return dispatch({ type: 'INIT', value: events }); });
+        });
+    }
+}
+
+export const deleteAsync = (eventId) => {
+    return dispatch => {
+        AsyncStorage.getItem('event').then(data => {
+            const events = reducer((data != null) ? JSON.parse(data) : [], { type: 'DELETE', value: eventId })
+            AsyncStorage.setItem('event', JSON.stringify(events))
+                .then(() => { return dispatch({ type: 'INIT', value: events }); });
+        });
+    }
+}
