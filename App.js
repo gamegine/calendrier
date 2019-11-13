@@ -7,9 +7,9 @@ import store from './redux/Store';
 
 export default function App() {
   return (
-    //<Provider store={store}>
-    <AppNavigator/>
-    //</Provider>
+    <Provider store={store}>
+      <AppNavigator />
+    </Provider>
   );
 }
 
