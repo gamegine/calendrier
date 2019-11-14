@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet, View } from 'react-native';
+import { Text, StyleSheet, View, TouchableHighlight } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -7,11 +7,11 @@ export default class HomePage extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
-      headerLeft : (
+      headerLeft: (
         <Icon name="ios-refresh" size={25} style={{ marginLeft: 20 }} onPress={console.log('sync data')} />
       ),
       headerRight: (
-        <Icon name="ios-add" size={25} style={{ marginRight: 20 }} onPress={() => navigation.push('Add')} />
+        <Icon name="ios-add" size={30} style={{ marginRight: 20 }} onPress={() => navigation.push('Add')} />
       )
     }
   };
@@ -23,7 +23,7 @@ export default class HomePage extends React.Component {
       <Agenda
         items={this.state.items}
         loadItemsForMonth={this.loadItems.bind(this)}
-        renderItem={this.renderItem}
+        renderItem={(el) => this.renderItem(el, this.props.navigation)}
         renderEmptyDate={() => (<View />)}
         rowHasChanged={this.rowHasChanged}
       />
@@ -38,11 +38,15 @@ export default class HomePage extends React.Component {
     this.setState({ items: items })
   }
 
-  renderItem(item) {
+  renderItem(item, nav) {
     return (
-      <View style={[styles.item, { height: item.height }]}>
-        <Text>{item.summary}</Text>
-        {(item.description != null) ? <Text>{item.description}</Text> : null}
+      <View>
+        <TouchableHighlight onPress={()=>nav.push('Add',{"event":item})} style={[styles.item, { height: item.height }]}>
+          <View>
+            <Text>{item.summary}</Text>
+            {(item.description != null) ? <Text>{item.description}</Text> : null}
+          </View>
+        </TouchableHighlight >
       </View>
     );
   }
