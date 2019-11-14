@@ -14,6 +14,7 @@ export default class EventForm extends React.Component {
     this.setState({ event: this.props.navigation.getParam("event") })
   }
   render() {
+    console.log(this.state)
     return (
       <View>
         <TextInput
@@ -33,6 +34,8 @@ export default class EventForm extends React.Component {
           is24Hour={true}
           onDateChange={(date) => { this.setState({ startdate: date }) }}
           placeholder="select date"
+          confirmBtnText="Confirm"
+          cancelBtnText="Cancel"
         />
         <Text style={{ alignSelf: 'center' }}>end</Text>
         <DatePicker
@@ -43,6 +46,8 @@ export default class EventForm extends React.Component {
           is24Hour={true}
           onDateChange={(date) => { this.setState({ enddate: date }) }}
           placeholder="select date"
+          confirmBtnText="Confirm"
+          cancelBtnText="Cancel"
         />
         <TextInput
           style={styles.input}
