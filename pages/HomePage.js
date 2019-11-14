@@ -7,6 +7,9 @@ export default class HomePage extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
+      headerLeft : (
+        <Icon name="ios-refresh" size={25} style={{ marginLeft: 20 }} onPress={console.log('sync data')} />
+      ),
       headerRight: (
         <Icon name="ios-add" size={25} style={{ marginRight: 20 }} onPress={() => navigation.push('Add')} />
       )
