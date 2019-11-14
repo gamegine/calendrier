@@ -10,46 +10,53 @@ export default class EventForm extends React.Component {
     startdate: (new Date().toISOString()),
     enddate: (new Date().toISOString())
   }
+  componentDidMount() {
+    this.setState({ event: this.props.navigation.getParam("event") })
+  }
   render() {
-    console.log(this.state)
     return (
-      <View style={{ flex: 1, alignItems: "center" }}>
+      <View>
         <TextInput
           style={styles.input}
           value={this.state.name}
-          onChangeText={name => this.setState({ name })}
+          onChangeText={name => this.setState({ name: name })}
           placeholder="Name"
-          autoFocus={true}
           autoCorrect={true}
           keyboardType="default"
         />
-        <View>
-          <View>
-            <Text>start</Text>
-            <DatePicker
-              style={{ width: 200 }}
-              date={this.state.startdate}
-              mode="datetime"
-              format="YYYY-MM-DDTHH:mm:ss.sssZ"
-              is24Hour={true}
-              onDateChange={(date) => { this.setState({ startdate: date }) }}
-              placeholder="select date"
-            />
-          </View>
-          <View>
-            <Text>end</Text>
-            <DatePicker
-              style={{ width: 200 }}
-              date={this.state.enddate}
-              mode="datetime"
-              format="YYYY-MM-DDTHH:mm:ss.sssZ"
-              is24Hour={true}
-              onDateChange={(date) => { this.setState({ enddate: date }) }}
-              placeholder="select date"
-            />
-          </View>
+        <Text style={{ alignSelf: 'center' }} >start</Text>
+        <DatePicker
+          style={{ width: 300, alignSelf: 'center' }}
+          date={this.state.startdate}
+          mode="datetime"
+          format="YYYY-MM-DDTHH:mm:ss.sssZ"
+          is24Hour={true}
+          onDateChange={(date) => { this.setState({ startdate: date }) }}
+          placeholder="select date"
+        />
+        <Text style={{ alignSelf: 'center' }}>end</Text>
+        <DatePicker
+          style={{ width: 300, alignSelf: 'center' }}
+          date={this.state.enddate}
+          mode="datetime"
+          format="YYYY-MM-DDTHH:mm:ss.sssZ"
+          is24Hour={true}
+          onDateChange={(date) => { this.setState({ enddate: date }) }}
+          placeholder="select date"
+        />
+        <TextInput
+          style={styles.input}
+          value={this.state.desc}
+          onChangeText={name => this.setState({ desc: name })}
+          placeholder="description"
+          autoCorrect={true}
+          keyboardType="default"
+          multiline={true}
+          numberOfLines={5}
+        />
+        <View style={{marginTop:20}}>
+          {this.state.event != null ? <Button title="update" onPress={() => this.onUpdate()} /> : <Button title="Add" onPress={() => this.onAdd()} />}
         </View>
-        {this.props.id != null ? <Button title="update" onPress={() => this.onUpdate()} /> : <Button title="Add" onPress={() => this.onAdd()} />}
       </View>
     );
   }
