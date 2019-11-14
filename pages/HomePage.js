@@ -1,8 +1,18 @@
 import React from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class HomePage extends React.Component {
+
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerRight: (
+        <Icon name="ios-add" size={25} style={{ marginRight: 20 }} onPress={() => navigation.push('Add')} />
+      )
+    }
+  };
+
   state = { items: {} };
 
   render() {

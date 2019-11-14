@@ -1,15 +1,25 @@
 import { View } from 'react-native';
 import React from 'react';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+import {createStackNavigator} from 'react-navigation-stack';
 import HomePage from "../pages/HomePage";
+import EventForm from '../pages/eventForm'
 import SettingsPage from "../pages/SettingsPage";
 import Icon from 'react-native-vector-icons/Ionicons';
 
+const HomeNav = createStackNavigator({
+    Home: {
+        screen: HomePage
+    },
+    Add: {
+        screen: EventForm
+    }
+});
 
 const tabNavigator = createMaterialBottomTabNavigator(
     {
         Home: {
-            screen: HomePage,
+            screen: HomeNav,
             navigationOptions: {
                 tabBarLabel: 'Accueil',
                 tabBarIcon: ({ tintColor }) => (
