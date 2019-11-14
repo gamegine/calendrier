@@ -1,8 +1,17 @@
 import React from 'react';
-import { Text, StatusBar, TextInput, View, StyleSheet, DatePickerIOS } from 'react-native';
+import { Text, TextInput, View, StyleSheet, Button } from 'react-native';
+
+import DatePicker from 'react-native-datepicker'
+
+
 export default class EventForm extends React.Component {
-  state = { name: '' }
+  state = {
+    name: '',
+    startdate: (new Date().toISOString()),
+    enddate: (new Date().toISOString())
+  }
   render() {
+    console.log(this.state)
     return (
       <View style={{ flex: 1, alignItems: "center" }}>
         <TextInput
@@ -14,9 +23,45 @@ export default class EventForm extends React.Component {
           autoCorrect={true}
           keyboardType="default"
         />
+        <View>
+          <View>
+            <Text>start</Text>
+            <DatePicker
+              style={{ width: 200 }}
+              date={this.state.startdate}
+              mode="datetime"
+              format="YYYY-MM-DDTHH:mm:ss.sssZ"
+              is24Hour={true}
+              onDateChange={(date) => { this.setState({ startdate: date }) }}
+              placeholder="select date"
+            />
+          </View>
+          <View>
+            <Text>end</Text>
+            <DatePicker
+              style={{ width: 200 }}
+              date={this.state.enddate}
+              mode="datetime"
+              format="YYYY-MM-DDTHH:mm:ss.sssZ"
+              is24Hour={true}
+              onDateChange={(date) => { this.setState({ enddate: date }) }}
+              placeholder="select date"
+            />
+          </View>
+        </View>
+        {this.props.id != null ? <Button title="update" onPress={() => this.onUpdate()} /> : <Button title="Add" onPress={() => this.onAdd()} />}
       </View>
     );
   }
+
+
+  onAdd() {
+    this.props.navigation.goBack()
+  }
+  onUpdate() {
+    this.props.navigation.goBack()
+  }
+
 };
 
 const styles = StyleSheet.create({
